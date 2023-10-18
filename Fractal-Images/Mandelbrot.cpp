@@ -29,6 +29,8 @@ int Mandelbrot::getIteration(double x, double y)
         // Increment the number of iterations for this point.
         iterations++;
     }
+    // Return the number of iterations taken to escape or reach the maximum.
+    // The returned value can be used to determine the color of the corresponding pixel.
 	return iterations;
 }
 
