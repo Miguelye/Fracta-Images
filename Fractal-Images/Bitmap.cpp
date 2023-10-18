@@ -8,10 +8,10 @@ using namespace std;
 
 namespace caveofprogramming {
 
-	//pPixels is multiply by 3 because each pixel is 3 bit of size
+	//pPixels is multiply by 3 because each pixel is 3 bytes of size
 	Bitmap::Bitmap(int width, int height) 
 		: m_width(width), m_height(height), 
-		  m_pPixels(new uint8_t[width * height * 3]{}) {
+		  m_pPixels(new uint8_t[width * height * 3]()) {
 
 }
 
@@ -57,7 +57,7 @@ bool Bitmap::write(string filename)
 
 	file.write((char*)&fileHeader, sizeof(fileHeader)); //write method expects an address to a char, so we need to cast it as such
 	file.write((char*)&infoHeader, sizeof(infoHeader)); //then it ask for the size of the file
-	file.write((char*)m_pPixels.get(), sizeof(m_width * m_height * 3)); //unique pointer cannot be casted, so we use get fucntion to get the raw pointer.
+	file.write((char*)m_pPixels.get(), m_width * m_height * 3); //unique pointer cannot be casted, so we use get fucntion to get the raw pointer.
 
 
 	file.close(); //always close a file whenever you open one
@@ -71,7 +71,17 @@ bool Bitmap::write(string filename)
 
 void Bitmap::setPixel(int x, int y, uint8_t red, uint8_t green, uint8_t blue)
 {
+	//pointer to set the specific pixel located on the x and y coords.
+	uint8_t* pPixel = m_pPixels.get(); //unique pointer cannot be assigned to normal pointer, that is why we use the get method to get the raw pointer.
 
+	//y is the rows, we multiply this by the width and this will take us to the row we are interested in
+	//then we move x(columns) amount of pixels, the pixels are size of 3 bytes, this is why we multiply x and y by 3
+	pPixel += (y * 3) * m_width + (x * 3); //this pointer points to the pixel we want to change
+
+	//the colors are reversed because the bitmap is use as a indian file format, reading from right to left
+	pPixel[0] = blue;
+	pPixel[1] = green;
+	pPixel[2] = red;
 }
 
 Bitmap::~Bitmap() {
