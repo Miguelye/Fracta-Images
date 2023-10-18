@@ -1,5 +1,7 @@
 #include <iostream>
+#include <cstdint>
 #include "Bitmap.h"
+#include "Mandelbrot.h"
 
 using namespace std;
 
@@ -24,9 +26,15 @@ int main()
             double xFractal = (x - WIDTH / 2) * 2.0 / WIDTH; //first we take the half of the width so we get simetrical with 0 (-400 to 400) then we multiply this with the fraction 2/width to get 1 (-1 to 1)
             double yFractal = (y - HEIGHT / 2) * 2.0 / HEIGHT;
 
+            int iterations = Mandelbrot::getIteration(xFractal, yFractal);
+
+            uint8_t red = (uint8_t)(256 * (double)iterations / Mandelbrot::MAX_ITERATIONS);
+
+            bitmap.setPixel(x, y, red, red, red);
+
             //cheking if range is proper
-            if (yFractal < min) min = yFractal;
-            if (yFractal > max) max = yFractal;
+            if (red < min) min = red;
+            if (red > max) max = red;
 
             //bitmap.setPixel(x, y, 255, 0, 0);
         }
