@@ -1,10 +1,12 @@
 #pragma once
-
+//Information about the Bitmap
 #include <cstdint>
 
 using namespace std;
 
 #pragma pack(2)
+
+namespace caveofprogramming {
 
 struct bitmapInfoHeader {
 	int32_t headerSize{ 40 };
@@ -19,3 +21,4 @@ struct bitmapInfoHeader {
 	int32_t colors{ 0 };
 	int32_t importanColors{ 0 };
 };
+}
