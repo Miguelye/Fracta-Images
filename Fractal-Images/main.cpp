@@ -17,7 +17,8 @@ int main()
     double min = 999999;
     double max = -999999;
 
-    unique_ptr<int[]> histogram(new int[Mandelbrot::MAX_ITERATIONS]());
+    unique_ptr<int[]> histogram(new int[Mandelbrot::MAX_ITERATIONS]{0}); //storing how many pixels for each iteration
+    unique_ptr<int[]> fractal(new int[WIDTH*HEIGHT]{0});   //storing the iterations of each pixel
 
     Bitmap bitmap(WIDTH, HEIGHT);
 
@@ -30,6 +31,8 @@ int main()
             double yFractal = (y - HEIGHT / 2) * 2.0 / HEIGHT;
 
             int iterations = Mandelbrot::getIteration(xFractal, yFractal);
+
+            fractal[y * WIDTH + x] = iterations;
 
             if (iterations != Mandelbrot::MAX_ITERATIONS)
             {
