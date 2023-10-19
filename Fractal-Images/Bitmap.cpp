@@ -3,10 +3,10 @@
 #include "BitmapFileHeader.h"
 #include "BitmapInfoHeader.h"
 
-using namespace caveofprogramming;
+using namespace mayg;
 using namespace std;
 
-namespace caveofprogramming {
+namespace mayg {
 
 	//pPixels is multiply by 3 because each pixel is 3 bytes of size
 	Bitmap::Bitmap(int width, int height) 

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-namespace caveofprogramming
+namespace mayg
 {
 
 

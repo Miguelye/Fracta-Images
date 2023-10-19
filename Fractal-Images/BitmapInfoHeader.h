@@ -6,7 +6,7 @@ using namespace std;
 
 #pragma pack(2)
 
-namespace caveofprogramming {
+namespace mayg {
 
 struct bitmapInfoHeader {
 	int32_t headerSize{ 40 };

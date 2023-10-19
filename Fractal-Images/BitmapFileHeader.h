@@ -7,7 +7,7 @@
 using namespace std;
 #pragma pack(2) //makes C++ align everything on two byte boundaries
 
-namespace caveofprogramming {
+namespace mayg {
 
 struct BitmapFileHeader
 {

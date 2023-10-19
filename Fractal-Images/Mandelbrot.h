@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace caveofprogramming {
+namespace mayg {
 
 
 class Mandelbrot

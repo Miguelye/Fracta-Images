@@ -1,18 +1,24 @@
 #include <iostream>
 #include <cstdint>
 #include <memory>
+#include <math.h>
 #include "Bitmap.h"
 #include "Mandelbrot.h"
+#include "ZoomList.h"
 
 using namespace std;
 
-using namespace caveofprogramming;
+using namespace mayg;
 using namespace std;
 
 int main()
 {
     int const WIDTH = 800;
     int const HEIGHT = 600; 
+
+    ZoomList zoomList(WIDTH, HEIGHT);
+
+    zoomList.add(Zoom(WIDTH / 2, HEIGHT / 2, 1));
 
     unique_ptr<int[]> histogram(new int[Mandelbrot::MAX_ITERATIONS]{0}); //storing how many pixels for each iteration
     unique_ptr<int[]> fractal(new int[WIDTH*HEIGHT]{0});   //storing the iterations of each pixel
@@ -50,29 +56,34 @@ int main()
         for (int x = 0; x < WIDTH; x++)
         {
 
-            int iterations = fractal[y * WIDTH + x];
-
-            uint8_t color = (uint8_t)(256 * (double)iterations / Mandelbrot::MAX_ITERATIONS);
-            
-            double hue = 0;
-
-            for (int i = 0; i <= iterations; i++)
-            {
-                hue += (double)histogram[i]/total;
-            }
-
             uint8_t red = 0;
-            uint8_t green = hue * 255;
+            uint8_t green = 0;
             uint8_t blue = 0;
 
-            bitmap.setPixel(x, y, red, green, blue);
+            int iterations = fractal[y * WIDTH + x];
+
+            if (iterations != Mandelbrot::MAX_ITERATIONS)
+            {
+
+                uint8_t color = (uint8_t)(256 * (double)iterations / Mandelbrot::MAX_ITERATIONS);
+            
+                double hue = 0.0;
+
+                for (int i = 0; i <= iterations; i++)
+                {
+                    hue += (double)histogram[i]/total;
+                }
+
+                uint8_t green = pow(255, hue);
+                bitmap.setPixel(x, y, red, green, blue);
+            }
+
         }
     }
 
     bitmap.write("test.bmp");
 
     cout << "finished\n";
-    cout << min << ", " << max << endl;
     for (size_t i = 0; i < Mandelbrot::MAX_ITERATIONS; i++)
     {
         cout << histogram[i] << endl;

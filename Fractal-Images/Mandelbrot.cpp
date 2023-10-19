@@ -3,7 +3,7 @@
 
 using namespace std;
 
-namespace caveofprogramming
+namespace mayg
 {
 
 int Mandelbrot::getIteration(double x, double y)
