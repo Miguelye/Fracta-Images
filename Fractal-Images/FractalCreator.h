@@ -2,10 +2,11 @@
 
 #include "Bitmap.h"
 #include "ZoomList.h"
+#include "Mandelbrot.h"
 #include <string>
 #include <utility>
-#include "Mandelbrot.h"
 #include <memory>
+#include <math.h>
 
 namespace mayg
 {
@@ -21,17 +22,17 @@ private:
 	Bitmap m_bitmap;
 	ZoomList m_zoomList;
 	
-
-
-public:
-	FractalCreator(int width, int height);
-	virtual ~FractalCreator();
-
 	void calculateIteration();
 	void calculateTotalIterations();
 	void drawFractal();
 	void addZoom(const Zoom& zoom);
 	void writeBitmap(std::string name);
+
+
+public:
+	FractalCreator(int width, int height);
+	void run(string name);
+
 };
 
 }

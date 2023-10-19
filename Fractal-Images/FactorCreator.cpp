@@ -14,10 +14,14 @@ namespace mayg
 		m_zoomList.add(Zoom(m_width / 2, m_height / 2, 4.0 / m_width)); //Base image, setting coordinate (0,0) to the center of the image
 	}
 
-	FractalCreator::~FractalCreator()
+	void FractalCreator::run(string name)
 	{
-
-
+		addZoom(Zoom(300, m_height - 200, 0.1));
+		addZoom(Zoom(568, m_height - 100, 0.1));
+		calculateIteration();
+		calculateTotalIterations();
+		drawFractal();
+		writeBitmap(name);
 	}
 
 	void FractalCreator::calculateIteration()
@@ -79,6 +83,8 @@ namespace mayg
 					}
 
 					uint8_t green = pow(255, hue);
+					//or
+					//uint8_t green = hue * 255;
 					m_bitmap.setPixel(x, y, red, green, blue);
 				}
 
