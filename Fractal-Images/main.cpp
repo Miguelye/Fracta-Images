@@ -12,7 +12,7 @@ using namespace std;
 int main()
 {
     int const WIDTH = 800;
-    int const HEIGHT = 600;
+    int const HEIGHT = 600; 
 
     unique_ptr<int[]> histogram(new int[Mandelbrot::MAX_ITERATIONS]{0}); //storing how many pixels for each iteration
     unique_ptr<int[]> fractal(new int[WIDTH*HEIGHT]{0});   //storing the iterations of each pixel
