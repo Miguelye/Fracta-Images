@@ -18,7 +18,9 @@ int main()
 
     ZoomList zoomList(WIDTH, HEIGHT);
 
-    zoomList.add(Zoom(WIDTH / 2, HEIGHT / 2, 1));
+    zoomList.add(Zoom(WIDTH / 2, HEIGHT / 2, 4.0/WIDTH));
+    zoomList.add(Zoom(300, HEIGHT - 200, 0.1));
+    zoomList.add(Zoom(568, HEIGHT - 100, 0.1));
 
     unique_ptr<int[]> histogram(new int[Mandelbrot::MAX_ITERATIONS]{0}); //storing how many pixels for each iteration
     unique_ptr<int[]> fractal(new int[WIDTH*HEIGHT]{0});   //storing the iterations of each pixel
@@ -29,11 +31,14 @@ int main()
     {
         for (int x = 0; x < WIDTH; x++)
         {
-            //Scaling making the range from -1 to 1;
-            double xFractal = (x - WIDTH / 2 - 200) * 2.0 / HEIGHT; //first we take the half of the width so we get simetrical with 0 (-400 to 400) then we multiply this with the fraction 2/width to get 1 (-1 to 1)
-            double yFractal = (y - HEIGHT / 2) * 2.0 / HEIGHT;
+            //zooming
+            pair<double, double> coords = zoomList.doZoom(x, y);
 
-            int iterations = Mandelbrot::getIteration(xFractal, yFractal);
+            //double xFractal = (x - WIDTH / 2 - 200) * 2.0 / HEIGHT; //first we take the half of the width so we get simetrical with 0 (-400 to 400) then we multiply this with the fraction 2/width to get 1 (-1 to 1)
+            //double yFractal = (y - HEIGHT / 2) * 2.0 / HEIGHT;
+
+            int iterations = Mandelbrot::getIteration(coords.first, coords.second);
+            //int iterations = Mandelbrot::getIteration(xFractal, yFractal);
 
             fractal[y * WIDTH + x] = iterations;
 
