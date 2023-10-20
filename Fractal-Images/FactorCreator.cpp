@@ -16,13 +16,18 @@ namespace mayg
 
 	void FractalCreator::run(string name)
 	{
-		addZoom(Zoom(300, m_height - 200, 0.1));
-		addZoom(Zoom(568, m_height - 100, 0.1));
 		calculateIteration();
 		calculateTotalIterations();
 		drawFractal();
 		writeBitmap(name);
 	}
+
+	void FractalCreator::addColorRange(double rangeEnd, const RGB& rgb)
+	{
+		m_ranges.push_back(rangeEnd);
+		m_colors.push_back(rgb);
+	}
+
 
 	void FractalCreator::calculateIteration()
 	{
@@ -59,6 +64,11 @@ namespace mayg
 
 	void FractalCreator::drawFractal()
 	{
+
+		RGB startColor(0, 0, 0);
+		RGB endColor(0, 255, 0);
+		RGB colorDiff = endColor - startColor;
+
 		for (int y = 0; y < m_height; y++)
 		{
 			for (int x = 0; x < m_width; x++)
@@ -82,9 +92,10 @@ namespace mayg
 						hue += (double)m_histogram[i] / m_total;
 					}
 
-					uint8_t green = pow(255, hue);
-					//or
-					//uint8_t green = hue * 255;
+					red = startColor.r + colorDiff.r * hue;
+					green = startColor.g + colorDiff.g * hue;
+					blue = startColor.b + colorDiff.b * hue;
+
 					m_bitmap.setPixel(x, y, red, green, blue);
 				}
 

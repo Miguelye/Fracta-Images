@@ -9,11 +9,17 @@ using namespace std;
 
 int main()
 {
-    int const m_width = 800;
-    int const m_height = 600; 
 
     FractalCreator fractalCreator(800, 600);
-    fractalCreator.run("test.bmp");
+
+    fractalCreator.addColorRange(0.3, RGB(255, 0, 0));
+    fractalCreator.addColorRange(0.5, RGB(0, 255, 0));
+    fractalCreator.addColorRange(1.0, RGB(0, 0, 255));
+
+    fractalCreator.addZoom(Zoom(300, 200, 0.1));
+    fractalCreator.addZoom(Zoom(568, 100, 0.1));
+
+    fractalCreator.run("test.bmp"); 
 
     cout << "finished\n";
     return 0;

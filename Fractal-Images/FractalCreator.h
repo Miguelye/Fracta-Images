@@ -3,10 +3,12 @@
 #include "Bitmap.h"
 #include "ZoomList.h"
 #include "Mandelbrot.h"
+#include "RGB.h"
 #include <string>
 #include <utility>
 #include <memory>
 #include <math.h>
+#include <vector>
 
 namespace mayg
 {
@@ -21,17 +23,20 @@ private:
 	unique_ptr<int[]> m_fractal;   //storing the iterations of each pixel
 	Bitmap m_bitmap;
 	ZoomList m_zoomList;
+	vector<double> m_ranges;
+	vector<RGB> m_colors;
 	
 	void calculateIteration();
 	void calculateTotalIterations();
 	void drawFractal();
-	void addZoom(const Zoom& zoom);
 	void writeBitmap(std::string name);
 
 
 public:
 	FractalCreator(int width, int height);
+	void addColorRange(double rangeEnd, const RGB& rgb);
 	void run(string name);
+	void addZoom(const Zoom& zoom);
 
 };
 

@@ -13,7 +13,7 @@ namespace mayg
 		zooms.push_back(zoom);
 
 		m_xCenter += (zoom.x - m_width / 2) * m_scale;
-		m_yCenter += (zoom.y - m_height / 2) * m_scale;
+		m_yCenter += -(zoom.y - m_height / 2) * m_scale; //is negative because the coordinate Y in a bitmap start at the bottom left, instead of upper left.
 		m_scale *= zoom.scale;
 	}
 
