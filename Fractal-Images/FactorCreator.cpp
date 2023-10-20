@@ -18,16 +18,39 @@ namespace mayg
 	{
 		calculateIteration();
 		calculateTotalIterations();
+		calculateRangeTotal();
 		drawFractal();
 		writeBitmap(name);
 	}
 
 	void FractalCreator::addColorRange(double rangeEnd, const RGB& rgb)
 	{
-		m_ranges.push_back(rangeEnd);
+		m_ranges.push_back(rangeEnd * Mandelbrot::MAX_ITERATIONS);
 		m_colors.push_back(rgb);
+
+		if (m_bGotFirstRange)
+		{
+			m_rangeTotals.push_back(0);
+		}
+
+		m_bGotFirstRange = true;
 	}
 
+	void FractalCreator::calculateRangeTotal()
+	{
+		int rangeIndex = 0;
+
+		for (int i = 0; i < Mandelbrot::MAX_ITERATIONS; i++)
+		{
+			int pixels = m_histogram[i];
+		}
+
+
+		for (int value: m_rangeTotals)
+		{
+			std::cout << "Range total: " << value << std::endl;
+		}
+	}
 
 	void FractalCreator::calculateIteration()
 	{
@@ -38,11 +61,7 @@ namespace mayg
 				//zooming
 				pair<double, double> coords = m_zoomList.doZoom(x, y);
 
-				//double xFractal = (x - WIDTH / 2 - 200) * 2.0 / HEIGHT; //first we take the half of the width so we get simetrical with 0 (-400 to 400) then we multiply this with the fraction 2/width to get 1 (-1 to 1)
-				//double yFractal = (y - HEIGHT / 2) * 2.0 / HEIGHT;
-
 				int iterations = Mandelbrot::getIteration(coords.first, coords.second);
-				//int iterations = Mandelbrot::getIteration(xFractal, yFractal);
 
 				m_fractal[y * m_width + x] = iterations;
 

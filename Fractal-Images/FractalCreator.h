@@ -9,6 +9,7 @@
 #include <memory>
 #include <math.h>
 #include <vector>
+#include <iostream>
 
 namespace mayg
 {
@@ -23,11 +24,15 @@ private:
 	unique_ptr<int[]> m_fractal;   //storing the iterations of each pixel
 	Bitmap m_bitmap;
 	ZoomList m_zoomList;
-	vector<double> m_ranges;
+	vector<int> m_ranges;
 	vector<RGB> m_colors;
-	
+	vector<int> m_rangeTotals;
+	bool m_bGotFirstRange{ false };
+
+
 	void calculateIteration();
 	void calculateTotalIterations();
+	void calculateRangeTotal();
 	void drawFractal();
 	void writeBitmap(std::string name);
 
