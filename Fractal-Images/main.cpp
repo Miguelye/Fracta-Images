@@ -19,9 +19,6 @@ int main()
 
     fractalCreator.addZoom(Zoom(600, 400, 0.1));
     fractalCreator.addZoom(Zoom(1080, 320, 0.1));
-    /*fractalCreator.addZoom(Zoom(568, 100, 0.1));
-    fractalCreator.addZoom(Zoom(275, 200, 0.07));*/
-
 
     fractalCreator.run("test.bmp"); 
 
